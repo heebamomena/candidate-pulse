@@ -1167,3 +1167,13 @@ footer {
     gap: 24px;
   }
 }
+/* ===== ABOUT SECTION FIX ===== */
+
+.about-bottom {  
+  margin-top: 60px;  
+  text-align: center;  
+
+  max-width: 700px;  
+  margin-left: auto;  
+  margin-right: auto;  
+}
