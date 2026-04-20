@@ -1133,7 +1133,7 @@ footer {
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 100px;
   align-items: start;
 }
 
