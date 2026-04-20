@@ -933,3 +933,36 @@ footer {
   .side-inner   { width: 100%; }
   .improve-grid { grid-template-columns: 1fr; }
 }
+.table-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  min-width: 38px;
+  height: 38px;
+  border: 1px solid rgba(44, 44, 42, 0.12);
+  background: #ffffff;
+  color: #2c2c2a;
+  border-radius: 999px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(196, 104, 122, 0.35);
+}
+
+.page-btn.active {
+  background: #c4687a;
+  color: #ffffff;
+  border-color: #c4687a;
+}
