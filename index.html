@@ -157,25 +157,28 @@
       <!-- Table + side panel -->
       <div class="dir-body">
         <div class="dir-table-wrap">
-          <table class="dir-table">
-            <thead>
-              <tr>
-                <th onclick="sortBy('name')">Candidate <span class="sort-arrow" id="sort-name">&#x25B4;</span></th>
-                <th onclick="sortBy('role')">Role <span class="sort-arrow" id="sort-role">&#x25B4;</span></th>
-                <th onclick="sortBy('industry')">Industry <span class="sort-arrow" id="sort-industry">&#x25B4;</span></th>
-                <th onclick="sortBy('stage')">Stage <span class="sort-arrow" id="sort-stage">&#x25B4;</span></th>
-                <th onclick="sortBy('sentiment')">Sentiment <span class="sort-arrow" id="sort-sentiment">&#x25B4;</span></th>
-                <th onclick="sortBy('rating')">Rating <span class="sort-arrow" id="sort-rating">&#x25B4;</span></th>
-                <th onclick="sortBy('comm')">Comms <span class="sort-arrow" id="sort-comm">&#x25B4;</span></th>
-                <th onclick="sortBy('days')">Days <span class="sort-arrow" id="sort-days">&#x25B4;</span></th>
-              </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-          </table>
-          <div class="empty-state" id="emptyState" style="display:none;">
-            No candidates match your filters.
-            <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
-          </div>
+          <<table class="dir-table">
+  <thead>
+    <tr>
+      <th onclick="sortBy('name')">Candidate <span class="sort-arrow" id="sort-name">&#x25B4;</span></th>
+      <th onclick="sortBy('role')">Role <span class="sort-arrow" id="sort-role">&#x25B4;</span></th>
+      <th onclick="sortBy('industry')">Industry <span class="sort-arrow" id="sort-industry">&#x25B4;</span></th>
+      <th onclick="sortBy('stage')">Stage <span class="sort-arrow" id="sort-stage">&#x25B4;</span></th>
+      <th onclick="sortBy('sentiment')">Sentiment <span class="sort-arrow" id="sort-sentiment">&#x25B4;</span></th>
+      <th onclick="sortBy('rating')">Rating <span class="sort-arrow" id="sort-rating">&#x25B4;</span></th>
+      <th onclick="sortBy('comm')">Comms <span class="sort-arrow" id="sort-comm">&#x25B4;</span></th>
+      <th onclick="sortBy('days')">Days <span class="sort-arrow" id="sort-days">&#x25B4;</span></th>
+    </tr>
+  </thead>
+  <tbody id="tableBody"></tbody>
+</table>
+
+<div class="table-pagination" id="tablePagination"></div>
+
+<div class="empty-state" id="emptyState" style="display:none;">
+  No candidates match your filters.
+  <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
+</div>
         </div>
 
         <!-- Side panel — slides in on row click -->
