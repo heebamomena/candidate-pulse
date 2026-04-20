@@ -174,20 +174,36 @@ function renderTable() {
   filtered.sort((a, b) => {
     let av = a[sortCol];
     let bv = b[sortCol];
-    if (typeof av === "string") { av = av.toLowerCase(); bv = bv.toLowerCase(); }
+    if (typeof av === "string") {
+      av = av.toLowerCase();
+      bv = bv.toLowerCase();
+    }
     return av < bv ? -sortDir : av > bv ? sortDir : 0;
   });
 
   const tbody = document.getElementById("tableBody");
-  tbody.innerHTML = "";
-
   const empty = document.getElementById("emptyState");
+  const pagination = document.getElementById("tablePagination");
+
+  tbody.innerHTML = "";
+  pagination.innerHTML = "";
+
   empty.style.display = filtered.length ? "none" : "block";
 
   document.getElementById("resultCount").textContent =
     `${filtered.length} of ${candidates.length} candidates`;
 
-  filtered.forEach(c => {
+  const totalPages = Math.ceil(filtered.length / rowsPerPage) || 1;
+
+  if (currentPage > totalPages) {
+    currentPage = 1;
+  }
+
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageRows = filtered.slice(start, end);
+
+  pageRows.forEach(c => {
     const origIdx = candidates.indexOf(c);
     const tr = document.createElement("tr");
     if (activeIdx === origIdx) tr.classList.add("active-row");
@@ -211,10 +227,31 @@ function renderTable() {
     tr.addEventListener("click", () => openPanel(origIdx, tr));
     tbody.appendChild(tr);
   });
+
+  if (filtered.length > rowsPerPage) {
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.className = `page-btn ${i === currentPage ? "active" : ""}`;
+      btn.textContent = i;
+      btn.addEventListener("click", () => {
+        currentPage = i;
+        closePanel();
+        renderTable();
+      });
+      pagination.appendChild(btn);
+    }
+  }
 }
 
 function sortBy(col) {
-  if (sortCol === col) { sortDir *= -1; } else { sortCol = col; sortDir = 1; }
+  if (sortCol === col) {
+    sortDir *= -1;
+  } else {
+    sortCol = col;
+    sortDir = 1;
+  }
+
+  currentPage = 1;
 
   document.querySelectorAll(".sort-arrow").forEach(el => {
     el.classList.remove("active");
@@ -289,6 +326,8 @@ function clearFilters() {
   document.getElementById("searchInput").value = "";
   ["filterStage", "filterSentiment", "filterIndustry", "filterRating", "filterComm"]
     .forEach(id => (document.getElementById(id).value = ""));
+
+  currentPage = 1;
   closePanel();
   renderTable();
 }
@@ -420,8 +459,16 @@ window.addEventListener("scroll", () => {
 ["searchInput", "filterStage", "filterSentiment", "filterIndustry", "filterRating", "filterComm"]
   .forEach(id => {
     const el = document.getElementById(id);
-    el.addEventListener("input",  () => { closePanel(); renderTable(); });
-    el.addEventListener("change", () => { closePanel(); renderTable(); });
+    el.addEventListener("input", () => {
+      currentPage = 1;
+      closePanel();
+      renderTable();
+    });
+    el.addEventListener("change", () => {
+      currentPage = 1;
+      closePanel();
+      renderTable();
+    });
   });
 
 // Chart tab buttons
