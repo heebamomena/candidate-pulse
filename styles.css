@@ -102,6 +102,9 @@ body {
   color: var(--muted);
   text-decoration: none;
   transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .nav-links a:hover { color: var(--charcoal); }
@@ -178,7 +181,15 @@ body {
   border-radius: 100px;
   margin-bottom: 2rem;
 }
+.sparkle-badge {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, letter-spacing 0.2s ease;
+}
 
+.sparkle-badge:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 26px rgba(196, 104, 122, 0.18);
+  letter-spacing: 0.04em;
+}
 .hero h1 {
   font-family: "Playfair Display", serif;
   font-size: clamp(2.8rem, 6vw, 4.5rem);
@@ -238,7 +249,6 @@ body {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(5px); }
 }
-
 /* ─── FUNNEL ─────────────────────────────────────────────────── */
 .funnel-grid {
   display: grid;
@@ -297,12 +307,13 @@ body {
 .funnel-modal {
   position: fixed;
   inset: 0;
-  background: rgba(44, 44, 42, 0.32);
+  background: rgba(44, 44, 42, 0.42);
   display: none;
   align-items: center;
   justify-content: center;
   padding: 24px;
-  z-index: 1200;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
 }
 
 .funnel-modal.open {
@@ -314,11 +325,11 @@ body {
   background: #fffdf9;
   border: 1px solid var(--border);
   border-radius: 24px;
-  box-shadow: 0 24px 80px rgba(44, 44, 42, 0.14);
+  box-shadow: 0 28px 90px rgba(44, 44, 42, 0.22);
   padding: 28px;
   position: relative;
+  transform: translateY(0);
 }
-
 .funnel-modal-close {
   position: absolute;
   top: 16px;
@@ -892,6 +903,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
+}
+
+.candidate-input-stack select,
+.candidate-input-stack input {
+  width: 100%;
+  display: block;
+}
 }
 .gen-btn {
   width: 100%;
@@ -1008,10 +1027,11 @@ footer {
 
 .footer-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: center;
+  text-align: center;
+  gap: 0.9rem;
 }
 
 .footer-logo {
@@ -1021,10 +1041,38 @@ footer {
   color: var(--charcoal);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
 }
 
-.footer-copy { font-size: 13px; color: var(--muted); }
+.footer-copy {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 760px;
+}
+
+.footer-links {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.footer-links a {
+  color: var(--charcoal);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--rose-deep);
+  border-bottom-color: var(--rose-deep);
+}
+
+.footer-links span {
+  margin: 0 10px;
+  color: var(--rose-deep);
+}
 
 /* ─── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
