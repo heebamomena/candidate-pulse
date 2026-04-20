@@ -114,9 +114,11 @@ function buildFunnel() {
 
 // ─── CANDIDATE DIRECTORY ─────────────────────────────────────
 
-let activeIdx  = null;
-let sortCol    = "name";
-let sortDir    = 1;
+let activeIdx   = null;
+let sortCol     = "name";
+let sortDir     = 1;
+let currentPage = 1;
+const rowsPerPage = 10;
 
 function buildMeta() {
   const total   = candidates.length;
