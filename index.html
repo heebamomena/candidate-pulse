@@ -59,7 +59,33 @@
     </div>
     <div class="scroll-hint">&#x2193; Scroll to explore</div>
   </section>
+<section class="section about-section" id="about">
+  <div class="container about-grid">
 
+    <div class="about-block">
+      <span class="section-label">About the tool</span>
+      <h2 class="section-title">What is Candidate Pulse?</h2>
+      <p class="about-text">
+        Candidate Pulse is a self-built employer branding and candidate experience tool designed to bring visibility into what candidates actually go through during the hiring process.
+      </p>
+      <p class="about-text">
+        It helps teams understand where candidates drop off, how they feel at each stage, and what small changes can improve communication, reduce friction, and build trust.
+      </p>
+    </div>
+
+    <div class="about-block">
+      <span class="section-label">About me</span>
+      <h2 class="section-title">Hi, I’m Heeba</h2>
+      <p class="about-text">
+        I’m an HR professional with a strong interest in candidate experience, recruitment operations, and employer branding. I enjoy understanding how people experience hiring processes — not just from a metrics perspective, but from a human one.
+      </p>
+      <p class="about-text">
+        This project started as an idea I wanted to explore on my own. Instead of just thinking about it, I decided to build something real — combining curiosity, data, and storytelling to better understand how hiring can feel for candidates.
+      </p>
+    </div>
+
+  </div>
+</section>
   <!-- ============================================================
        FUNNEL — DROP-OFF ANALYSIS
   ============================================================ -->
@@ -342,3 +368,35 @@
 
 </body>
 </html>
+.about-section {
+  padding-top: 40px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.about-block {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.about-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--charcoal-soft);
+  margin-bottom: 14px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
