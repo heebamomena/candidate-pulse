@@ -19,12 +19,12 @@
         <span class="logo-dot"></span> Candidate Pulse
       </div>
       <ul class="nav-links">
-        <li><a href="#funnel">Funnel</a></li>
-        <li><a href="#candidates">Candidates</a></li>
-        <li><a href="#sentiment">Sentiment</a></li>
-        <li><a href="#messages">Messages</a></li>
-        <li><a href="#improve">Improve</a></li>
-      </ul>
+  <li><a href="#funnel">🌈 Funnel</a></li>
+  <li><a href="#candidates">🧑‍💼 Candidates</a></li>
+  <li><a href="#sentiment">💬 Sentiment</a></li>
+  <li><a href="#messages">✨ Messages</a></li>
+  <li><a href="#improve">🛠 Improve</a></li>
+</ul>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
     </div>
   </nav>
@@ -33,7 +33,7 @@
        HERO
   ============================================================ -->
   <section class="hero" id="hero">
-    <div class="hero-badge">&#x2665; Employer Branding Tool</div>
+    <div class="hero-badge sparkle-badge">✨ Employer Branding Tool ✨</div>
     <h1>The candidate experience<br />shouldn't be a <em>black box.</em></h1>
     <p class="hero-sub">
       Candidate Pulse gives talent teams real visibility into how candidates feel,
@@ -70,9 +70,30 @@
       <p class="section-sub">Every exit tells a story. Here's where your pipeline is leaking — and why.</p>
 
       <div class="funnel-grid">
-        <!-- Funnel bars — built by JS -->
-        <div class="funnel-visual" id="funnelViz"></div>
-        <div class="funnel-modal" id="funnelModal">
+  <!-- Static insight cards -->
+  <div class="funnel-insights">
+    <div class="insight-item">
+      <div class="insight-title">Biggest drop-off: Phone screening</div>
+      <div class="insight-body">38% of candidates who complete applications drop off before or during the phone screen. Most cite "no response within 7 days" as the reason.</div>
+      <span class="insight-tag">Action needed</span>
+    </div>
+    <div class="insight-item">
+      <div class="insight-title">Interview to offer gap</div>
+      <div class="insight-body">Candidates report uncertainty after final interviews. A 48-hour check-in message reduces ghosting by an estimated 40%.</div>
+      <span class="insight-tag">Quick win</span>
+    </div>
+    <div class="insight-item">
+      <div class="insight-title">Application completion rate</div>
+      <div class="insight-body">Only 72% of started applications are completed. Simplifying the form from 12 to 7 fields could recover 15+ candidates per cohort.</div>
+      <span class="insight-tag">High impact</span>
+    </div>
+  </div>
+
+  <!-- Funnel bars — built by JS -->
+  <div class="funnel-visual" id="funnelViz"></div>
+</div>
+
+<div class="funnel-modal" id="funnelModal">
   <div class="funnel-modal-card">
     <button class="funnel-modal-close" type="button" onclick="closeFunnelModal()">&#x2715;</button>
     <div class="funnel-modal-label">Stage snapshot</div>
@@ -93,27 +114,6 @@
     <p class="funnel-modal-analysis" id="funnelModalAnalysis"></p>
   </div>
 </div>
-
-        <!-- Static insight cards -->
-        <div class="funnel-insights">
-          <div class="insight-item">
-            <div class="insight-title">Biggest drop-off: Phone screening</div>
-            <div class="insight-body">38% of candidates who complete applications drop off before or during the phone screen. Most cite "no response within 7 days" as the reason.</div>
-            <span class="insight-tag">Action needed</span>
-          </div>
-          <div class="insight-item">
-            <div class="insight-title">Interview to offer gap</div>
-            <div class="insight-body">Candidates report uncertainty after final interviews. A 48-hour check-in message reduces ghosting by an estimated 40%.</div>
-            <span class="insight-tag">Quick win</span>
-          </div>
-          <div class="insight-item">
-            <div class="insight-title">Application completion rate</div>
-            <div class="insight-body">Only 72% of started applications are completed. Simplifying the form from 12 to 7 fields could recover 15+ candidates per cohort.</div>
-            <span class="insight-tag">High impact</span>
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- ============================================================
@@ -255,7 +255,14 @@
     <select id="msgCandidate">
       <option value="">Select candidate from dropdown</option>
     </select>
-    <input type="text" id="msgCandidateInput" placeholder="Or type candidate name" />
+    <input
+      type="text"
+      id="msgCandidateInput"
+      placeholder="Or type candidate name"
+      list="candidateNameSuggestions"
+      autocomplete="off"
+    />
+    <datalist id="candidateNameSuggestions"></datalist>
   </div>
 </div>
             <div class="control-group">
@@ -309,13 +316,23 @@
        FOOTER
   ============================================================ -->
   <footer>
-    <div class="container footer-inner">
-      <div class="footer-logo">
-  <span class="logo-dot"></span> Candidate Pulse by Heeba Momena
-</div>
-      <p class="footer-copy">Built by Heeba Momena — a curious HR professional who wanted to turn an idea into something real, so I brainstormed, experimented, and created Candidate Pulse to explore candidate experience in a more human way. &#x2665;</p>
+  <div class="container footer-inner">
+    <div class="footer-logo">
+      <span class="logo-dot"></span> Candidate Pulse by Heeba Momena
     </div>
-  </footer>
+
+    <p class="footer-copy">
+      Built by Heeba Momena — a curious HR professional who believes great candidate experience starts with listening, and decided to build something to prove it. &#x1F5A4;<br><br>
+      Turning candidate feedback into insights that help teams communicate better, reduce drop-offs, and build trust.
+    </p>
+
+    <p class="footer-links">
+      <a href="https://www.linkedin.com/in/heeba-momena/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <span>✦</span>
+      <a href="https://github.com/heebamomena" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
 
   <!-- Chart.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
