@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidate Pulse — Candidate Experience Tool</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-dot"></span> Candidate Pulse
+      </div>
+      <ul class="nav-links">
+        <li><a href="#funnel">Funnel</a></li>
+        <li><a href="#candidates">Candidates</a></li>
+        <li><a href="#sentiment">Sentiment</a></li>
+        <li><a href="#messages">Messages</a></li>
+        <li><a href="#improve">Improve</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-badge">&#x2665; Employer Branding Tool</div>
+    <h1>The candidate experience<br />shouldn't be a <em>black box.</em></h1>
+    <p class="hero-sub">
+      Candidate Pulse gives talent teams real visibility into how candidates feel,
+      where they drop off, and what you can do about it — before it damages your brand.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num" id="stat1">0</span>
+        <span class="lbl">Candidates tracked</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" id="stat2">0</span>
+        <span class="lbl">% positive sentiment</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" id="stat3">0</span>
+        <span class="lbl">% drop-off rate</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" id="stat4">0</span>
+        <span class="lbl">Avg. response days</span>
+      </div>
+    </div>
+    <div class="scroll-hint">&#x2193; Scroll to explore</div>
+  </section>
+
+  <!-- ============================================================
+       FUNNEL — DROP-OFF ANALYSIS
+  ============================================================ -->
+  <section id="funnel" class="section">
+    <div class="container">
+      <div class="section-label">Drop-off Analysis</div>
+      <div class="section-title">Where are candidates leaving?</div>
+      <p class="section-sub">Every exit tells a story. Here's where your pipeline is leaking — and why.</p>
+
+      <div class="funnel-grid">
+        <!-- Funnel bars — built by JS -->
+        <div class="funnel-visual" id="funnelViz"></div>
+
+        <!-- Static insight cards -->
+        <div class="funnel-insights">
+          <div class="insight-item">
+            <div class="insight-title">Biggest drop-off: Phone screening</div>
+            <div class="insight-body">38% of candidates who complete applications drop off before or during the phone screen. Most cite "no response within 7 days" as the reason.</div>
+            <span class="insight-tag">Action needed</span>
+          </div>
+          <div class="insight-item">
+            <div class="insight-title">Interview to offer gap</div>
+            <div class="insight-body">Candidates report uncertainty after final interviews. A 48-hour check-in message reduces ghosting by an estimated 40%.</div>
+            <span class="insight-tag">Quick win</span>
+          </div>
+          <div class="insight-item">
+            <div class="insight-title">Application completion rate</div>
+            <div class="insight-body">Only 72% of started applications are completed. Simplifying the form from 12 to 7 fields could recover 15+ candidates per cohort.</div>
+            <span class="insight-tag">High impact</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CANDIDATE DIRECTORY
+  ============================================================ -->
+  <section id="candidates" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Candidate Profiles</div>
+      <div class="section-title">Meet the candidates</div>
+      <p class="section-sub">Filter, sort, and click any row to open their full profile in the side panel.</p>
+    </div>
+
+    <!-- Directory — full-width below the header -->
+    <div class="directory-wrap">
+
+      <!-- Summary chips -->
+      <div class="dir-header">
+        <div class="dir-meta" id="metaChips"></div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="dir-filters">
+        <div class="search-wrap">
+          <span class="search-icon">&#x2315;</span>
+          <input type="text" id="searchInput" placeholder="Search name, role, industry…" />
+        </div>
+        <select class="filter-select" id="filterStage">
+          <option value="">All stages</option>
+          <option value="applied">Applied</option>
+          <option value="screening">Screening</option>
+          <option value="interview">Interview</option>
+          <option value="offer">Offer</option>
+          <option value="dropped">Dropped off</option>
+        </select>
+        <select class="filter-select" id="filterSentiment">
+          <option value="">All sentiment</option>
+          <option value="positive">Positive</option>
+          <option value="neutral">Neutral</option>
+          <option value="negative">Negative</option>
+        </select>
+        <select class="filter-select" id="filterIndustry">
+          <option value="">All industries</option>
+        </select>
+        <select class="filter-select" id="filterRating">
+          <option value="">All ratings</option>
+          <option value="5">5 stars</option>
+          <option value="4">4 stars</option>
+          <option value="3">3 stars</option>
+          <option value="2">2 stars</option>
+          <option value="1">1 star</option>
+        </select>
+        <select class="filter-select" id="filterComm">
+          <option value="">All communication</option>
+          <option value="high">High (80%+)</option>
+          <option value="medium">Medium (50–79%)</option>
+          <option value="low">Low (below 50%)</option>
+        </select>
+        <button class="clear-btn" onclick="clearFilters()">&#x2715; Clear</button>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+
+      <!-- Table + side panel -->
+      <div class="dir-body">
+        <div class="dir-table-wrap">
+          <table class="dir-table">
+            <thead>
+              <tr>
+                <th onclick="sortBy('name')">Candidate <span class="sort-arrow" id="sort-name">&#x25B4;</span></th>
+                <th onclick="sortBy('role')">Role <span class="sort-arrow" id="sort-role">&#x25B4;</span></th>
+                <th onclick="sortBy('industry')">Industry <span class="sort-arrow" id="sort-industry">&#x25B4;</span></th>
+                <th onclick="sortBy('stage')">Stage <span class="sort-arrow" id="sort-stage">&#x25B4;</span></th>
+                <th onclick="sortBy('sentiment')">Sentiment <span class="sort-arrow" id="sort-sentiment">&#x25B4;</span></th>
+                <th onclick="sortBy('rating')">Rating <span class="sort-arrow" id="sort-rating">&#x25B4;</span></th>
+                <th onclick="sortBy('comm')">Comms <span class="sort-arrow" id="sort-comm">&#x25B4;</span></th>
+                <th onclick="sortBy('days')">Days <span class="sort-arrow" id="sort-days">&#x25B4;</span></th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState" style="display:none;">
+            No candidates match your filters.
+            <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
+          </div>
+        </div>
+
+        <!-- Side panel — slides in on row click -->
+        <div class="dir-side" id="sidePanel">
+          <div class="side-inner" id="sideInner"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SENTIMENT & CHARTS
+  ============================================================ -->
+  <section id="sentiment" class="section">
+    <div class="container">
+      <div class="section-label">Sentiment &amp; Communication</div>
+      <div class="section-title">How does communication shape experience?</div>
+      <p class="section-sub">Timely, personalised communication directly correlates with positive candidate sentiment.</p>
+
+      <div class="chart-card">
+        <div class="chart-tabs" id="chartTabs">
+          <button class="tab-btn active" data-chart="sentiment">Sentiment by stage</button>
+          <button class="tab-btn" data-chart="response">Response time impact</button>
+          <button class="tab-btn" data-chart="communication">Communication quality</button>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="mainChart" role="img" aria-label="Bar chart showing candidate sentiment data"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MESSAGE GENERATOR
+  ============================================================ -->
+  <section id="messages" class="section section-alt">
+    <div class="container">
+      <div class="section-label">AI Message Generator</div>
+      <div class="section-title">Write with empathy, at scale</div>
+      <p class="section-sub">Generate warm, personalised messages for every stage — so every candidate feels seen and heard.</p>
+
+      <div class="msg-tool">
+        <div class="msg-tool-header">
+          <h3>Personalised Message Builder</h3>
+          <p>Smart templates that put the human back into hiring communications.</p>
+        </div>
+        <div class="msg-tool-body">
+          <div class="msg-controls">
+            <div class="control-group">
+              <label class="control-label">Candidate</label>
+              <select id="msgCandidate"></select>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Message Type</label>
+              <select id="msgType">
+                <option value="application_received">Application received</option>
+                <option value="screening_invite">Screening invite</option>
+                <option value="interview_scheduled">Interview scheduled</option>
+                <option value="post_interview">Post-interview check-in</option>
+                <option value="rejection_kind">Thoughtful rejection</option>
+                <option value="offer">Offer extended</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Tone</label>
+              <select id="msgTone">
+                <option value="warm">Warm &amp; encouraging</option>
+                <option value="professional">Professional &amp; clear</option>
+                <option value="casual">Casual &amp; friendly</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Company Name</label>
+              <input type="text" id="msgCompany" value="TalentForward" placeholder="Your company name" />
+            </div>
+          </div>
+          <button class="gen-btn" id="genBtn">&#x2728; Generate personalised message</button>
+          <div class="msg-output" id="msgOutput">
+            <p class="msg-placeholder" id="msgPlaceholder">Your personalised message will appear here. Select a candidate and message type above, then click generate.</p>
+            <div class="msg-text" id="msgText" style="display:none;"></div>
+            <button class="copy-btn" id="copyBtn" style="display:none;" onclick="copyMessage()">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       IMPROVEMENT RECOMMENDATIONS
+  ============================================================ -->
+  <section id="improve" class="section">
+    <div class="container">
+      <div class="section-label">Improvement Recommendations</div>
+      <div class="section-title">Six things you can do this month</div>
+      <p class="section-sub">Based on the patterns in this cohort, here are the highest-impact changes your team can make right now.</p>
+      <div class="improve-grid" id="improveGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <span class="logo-dot"></span> Candidate Pulse
+      </div>
+      <p class="footer-copy">Built as an employer branding experiment. Made with curiosity and care. &#x2665;</p>
+    </div>
+  </footer>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <!-- App logic -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
