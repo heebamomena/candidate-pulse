@@ -72,6 +72,27 @@
       <div class="funnel-grid">
         <!-- Funnel bars — built by JS -->
         <div class="funnel-visual" id="funnelViz"></div>
+        <div class="funnel-modal" id="funnelModal">
+  <div class="funnel-modal-card">
+    <button class="funnel-modal-close" type="button" onclick="closeFunnelModal()">&#x2715;</button>
+    <div class="funnel-modal-label">Stage snapshot</div>
+    <h3 class="funnel-modal-title" id="funnelModalTitle"></h3>
+    <p class="funnel-modal-summary" id="funnelModalSummary"></p>
+
+    <div class="funnel-modal-stats">
+      <div class="funnel-modal-stat">
+        <span>Candidates at this stage</span>
+        <strong id="funnelModalCount"></strong>
+      </div>
+      <div class="funnel-modal-stat">
+        <span>Conversion from start</span>
+        <strong id="funnelModalPct"></strong>
+      </div>
+    </div>
+
+    <p class="funnel-modal-analysis" id="funnelModalAnalysis"></p>
+  </div>
+</div>
 
         <!-- Static insight cards -->
         <div class="funnel-insights">
@@ -166,7 +187,7 @@
       <th onclick="sortBy('stage')">Stage <span class="sort-arrow" id="sort-stage">&#x25B4;</span></th>
       <th onclick="sortBy('sentiment')">Sentiment <span class="sort-arrow" id="sort-sentiment">&#x25B4;</span></th>
       <th onclick="sortBy('rating')">Rating <span class="sort-arrow" id="sort-rating">&#x25B4;</span></th>
-      <th onclick="sortBy('comm')">Comms <span class="sort-arrow" id="sort-comm">&#x25B4;</span></th>
+      <th onclick="sortBy('comm')">Communication % <span class="sort-arrow" id="sort-comm">&#x25B4;</span></th>
       <th onclick="sortBy('days')">Days <span class="sort-arrow" id="sort-days">&#x25B4;</span></th>
     </tr>
   </thead>
@@ -229,9 +250,14 @@
         <div class="msg-tool-body">
           <div class="msg-controls">
             <div class="control-group">
-              <label class="control-label">Candidate</label>
-              <select id="msgCandidate"></select>
-            </div>
+  <label class="control-label">Candidate</label>
+  <div class="candidate-input-stack">
+    <select id="msgCandidate">
+      <option value="">Select candidate from dropdown</option>
+    </select>
+    <input type="text" id="msgCandidateInput" placeholder="Or type candidate name" />
+  </div>
+</div>
             <div class="control-group">
               <label class="control-label">Message Type</label>
               <select id="msgType">
@@ -285,9 +311,9 @@
   <footer>
     <div class="container footer-inner">
       <div class="footer-logo">
-        <span class="logo-dot"></span> Candidate Pulse
-      </div>
-      <p class="footer-copy">Built as an employer branding experiment. Made with curiosity and care. &#x2665;</p>
+  <span class="logo-dot"></span> Candidate Pulse by Heeba Momena
+</div>
+      <p class="footer-copy">Built by Heeba Momena — a curious HR professional who wanted to turn an idea into something real, so I brainstormed, experimented, and created Candidate Pulse to explore candidate experience in a more human way. &#x2665;</p>
     </div>
   </footer>
 
