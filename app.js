@@ -458,25 +458,44 @@ function switchChart(type, btn) {
 
 function populateMsgDropdown() {
   const sel = document.getElementById("msgCandidate");
+  const list = document.getElementById("candidateNameSuggestions");
+  const input = document.getElementById("msgCandidateInput");
+
   candidates.forEach(c => {
     const opt = document.createElement("option");
     opt.value = c.name;
     opt.textContent = `${c.name} — ${c.role}`;
     sel.appendChild(opt);
+
+    const suggestion = document.createElement("option");
+    suggestion.value = c.name;
+    list.appendChild(suggestion);
   });
 
   sel.addEventListener("change", () => {
-    document.getElementById("msgCandidateInput").value = sel.value;
+    input.value = sel.value;
+  });
+
+  input.addEventListener("input", () => {
+    const typed = input.value.trim().toLowerCase();
+    const match = candidates.find(c => c.name.toLowerCase().startsWith(typed));
+
+    if (match) {
+      sel.value = match.name;
+    } else {
+      sel.value = "";
+    }
   });
 }
 
 function generateMessage() {
-  const typedName = document.getElementById("msgCandidateInput").value.trim();
+  const inputEl = document.getElementById("msgCandidateInput");
+  const typedName = inputEl.value.trim();
   const selectedName = document.getElementById("msgCandidate").value;
   const name = typedName || selectedName;
 
-  const type    = document.getElementById("msgType").value;
-  const tone    = document.getElementById("msgTone").value;
+  const type = document.getElementById("msgType").value;
+  const tone = document.getElementById("msgTone").value;
   const company = document.getElementById("msgCompany").value || "TalentForward";
 
   if (!name) return;
@@ -484,6 +503,11 @@ function generateMessage() {
   const cand = candidates.find(c => c.name.toLowerCase() === name.toLowerCase());
   const resolvedName = cand ? cand.name : name;
   const role = cand ? cand.role : "this role";
+
+  if (cand) {
+    inputEl.value = cand.name;
+    document.getElementById("msgCandidate").value = cand.name;
+  }
 
   const fn = messageTemplates[type]?.[tone];
   if (!fn) return;
