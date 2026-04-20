@@ -71,47 +71,126 @@ function animateStats() {
 
 // ─── FUNNEL ──────────────────────────────────────────────────
 
+// ─── FUNNEL ──────────────────────────────────────────────────
+
+const funnelStages = [
+  {
+    label: "Applications started",
+    count: 41,
+    pct: 100,
+    color: "#7EB8D4",
+    drop: "—",
+    dropClass: "",
+    summary: "Applications started with 41 candidates.",
+    analysis: "This is the full top of the funnel. It shows total intent and interest before any form friction or recruiter follow-up affects completion."
+  },
+  {
+    label: "Applications completed",
+    count: 30,
+    pct: 73,
+    color: "#7DB87A",
+    drop: "28%",
+    dropClass: "drop-red",
+    summary: "Applications completed with 30 candidates out of 41 started.",
+    analysis: "11 candidates dropped before finishing the application. This usually signals form friction, too many required fields, or a process that feels too long too early."
+  },
+  {
+    label: "Screening call",
+    count: 24,
+    pct: 58,
+    color: "#E8B96A",
+    drop: "20%",
+    dropClass: "drop-amber",
+    summary: "24 candidates reached the screening call stage.",
+    analysis: "6 candidates dropped between application completion and screening. This often points to slower recruiter response time, unclear expectations, or lower-fit profiles after review."
+  },
+  {
+    label: "First interview",
+    count: 17,
+    pct: 41,
+    color: "#E8A5B0",
+    drop: "35%",
+    dropClass: "drop-red",
+    summary: "17 candidates moved into the first interview.",
+    analysis: "7 candidates dropped between screening and first interview. This is one of the sharper falloffs and may reflect scheduling delays, mismatch after first contact, or drop in candidate interest."
+  },
+  {
+    label: "Final interview",
+    count: 11,
+    pct: 27,
+    color: "#C4687A",
+    drop: "27%",
+    dropClass: "drop-amber",
+    summary: "11 candidates progressed to the final interview stage.",
+    analysis: "6 candidates dropped between first and final interview. At this point, candidate experience matters even more because delays or uncertainty can quickly weaken trust."
+  },
+  {
+    label: "Offer extended",
+    count: 8,
+    pct: 20,
+    color: "#7EB8D4",
+    drop: "—",
+    dropClass: "",
+    summary: "Offers were extended to 8 candidates.",
+    analysis: "3 candidates dropped between final interview and offer. This usually signals hesitation late in the process, slower decision-making, or a lack of reassurance after the final round."
+  }
+];
+
 function buildFunnel() {
-  const stages = [
-    { label: "Applications started",   count: 41, pct: 100 },
-    { label: "Applications completed", count: 30, pct: 73  },
-    { label: "Screening call",         count: 24, pct: 58  },
-    { label: "First interview",        count: 17, pct: 41  },
-    { label: "Final interview",        count: 11, pct: 27  },
-    { label: "Offer extended",         count: 8,  pct: 20  }
-  ];
-
-  const colors = ["#7EB8D4", "#7DB87A", "#E8B96A", "#E8A5B0", "#C4687A", "#7EB8D4"];
-  const drops  = ["—", "28%", "20%", "35%", "27%", "—"];
-  const dropCls = ["", "drop-red", "drop-amber", "drop-red", "drop-amber", ""];
-
   const container = document.getElementById("funnelViz");
+  container.innerHTML = "";
 
-  stages.forEach((s, i) => {
+  funnelStages.forEach((s, i) => {
     const row = document.createElement("div");
     row.className = "funnel-stage";
     row.innerHTML = `
       <div class="funnel-label">${s.label}</div>
       <div class="funnel-bar-wrap">
         <div class="funnel-bar" id="fbar${i}"
-             style="width:0%;background:${colors[i]}22;border:1.5px solid ${colors[i]};">
-          <span style="color:${colors[i]}">${s.count} candidates</span>
+             style="width:0%;background:${s.color}22;border:1.5px solid ${s.color};">
+          <span style="color:${s.color}">${s.count} candidates</span>
         </div>
       </div>
       <div class="funnel-count">${s.count}</div>
-      ${drops[i] !== "—"
-        ? `<span class="drop-tag ${dropCls[i]}">${drops[i]}</span>`
+      ${s.drop !== "—"
+        ? `<span class="drop-tag ${s.dropClass}">${s.drop}</span>`
         : `<span class="drop-tag-placeholder"></span>`}
     `;
+
+    row.addEventListener("click", () => openFunnelModal(i));
     container.appendChild(row);
 
-    // Animate bar width after a staggered delay
     setTimeout(() => {
       document.getElementById("fbar" + i).style.width = s.pct + "%";
     }, 200 + i * 120);
   });
 }
 
+function openFunnelModal(index) {
+  const stage = funnelStages[index];
+  document.getElementById("funnelModalTitle").textContent = stage.label;
+  document.getElementById("funnelModalSummary").textContent = stage.summary;
+  document.getElementById("funnelModalCount").textContent = `${stage.count} candidates`;
+  document.getElementById("funnelModalPct").textContent = `${stage.pct}%`;
+  document.getElementById("funnelModalAnalysis").textContent = stage.analysis;
+  document.getElementById("funnelModal").classList.add("open");
+}
+
+function closeFunnelModal() {
+  document.getElementById("funnelModal").classList.remove("open");
+}
+document.addEventListener("click", e => {
+  const modal = document.getElementById("funnelModal");
+  if (e.target === modal) {
+    closeFunnelModal();
+  }
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    closeFunnelModal();
+  }
+});
 // ─── CANDIDATE DIRECTORY ─────────────────────────────────────
 
 let activeIdx   = null;
@@ -385,20 +464,31 @@ function populateMsgDropdown() {
     opt.textContent = `${c.name} — ${c.role}`;
     sel.appendChild(opt);
   });
+
+  sel.addEventListener("change", () => {
+    document.getElementById("msgCandidateInput").value = sel.value;
+  });
 }
 
 function generateMessage() {
-  const name    = document.getElementById("msgCandidate").value;
+  const typedName = document.getElementById("msgCandidateInput").value.trim();
+  const selectedName = document.getElementById("msgCandidate").value;
+  const name = typedName || selectedName;
+
   const type    = document.getElementById("msgType").value;
   const tone    = document.getElementById("msgTone").value;
   const company = document.getElementById("msgCompany").value || "TalentForward";
-  const cand    = candidates.find(c => c.name === name);
-  const role    = cand ? cand.role : "this role";
+
+  if (!name) return;
+
+  const cand = candidates.find(c => c.name.toLowerCase() === name.toLowerCase());
+  const resolvedName = cand ? cand.name : name;
+  const role = cand ? cand.role : "this role";
 
   const fn = messageTemplates[type]?.[tone];
   if (!fn) return;
 
-  const text = fn(name, role, company);
+  const text = fn(resolvedName, role, company);
 
   document.getElementById("msgPlaceholder").style.display = "none";
 
@@ -408,12 +498,14 @@ function generateMessage() {
 
   document.getElementById("copyBtn").style.display = "block";
 
-  // Typewriter effect
   let i = 0;
   const interval = setInterval(() => {
     out.textContent = text.slice(0, i);
     i += 4;
-    if (i > text.length) { out.textContent = text; clearInterval(interval); }
+    if (i > text.length) {
+      out.textContent = text;
+      clearInterval(interval);
+    }
   }, 10);
 }
 
