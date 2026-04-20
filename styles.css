@@ -294,6 +294,114 @@ body {
   text-align: center;
 }
 
+.funnel-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 44, 42, 0.32);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1200;
+}
+
+.funnel-modal.open {
+  display: flex;
+}
+
+.funnel-modal-card {
+  width: min(560px, 100%);
+  background: #fffdf9;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: 0 24px 80px rgba(44, 44, 42, 0.14);
+  padding: 28px;
+  position: relative;
+}
+
+.funnel-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--charcoal);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.funnel-modal-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  margin-bottom: 10px;
+}
+
+.funnel-modal-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  margin-bottom: 10px;
+  color: var(--charcoal);
+}
+
+.funnel-modal-summary {
+  font-size: 15px;
+  color: var(--charcoal-soft);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.funnel-modal-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.funnel-modal-stat {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.funnel-modal-stat span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.funnel-modal-stat strong {
+  font-size: 1.1rem;
+  color: var(--charcoal);
+}
+
+.funnel-modal-analysis {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--charcoal);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .funnel-modal-card {
+    padding: 22px;
+  }
+
+  .funnel-modal-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
 .drop-tag {
   font-size: 11px;
   font-weight: 700;
@@ -780,7 +888,11 @@ body {
 
 .msg-tool select:focus,
 .msg-tool input[type="text"]:focus { outline: none; border-color: var(--rose-deep); }
-
+.candidate-input-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .gen-btn {
   width: 100%;
   padding: 14px;
