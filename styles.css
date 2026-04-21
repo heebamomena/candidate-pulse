@@ -1234,3 +1234,57 @@ button[onclick="generateMessage()"]:hover {
   margin: 0 auto 20px;  
   border-radius: 999px;  
 }
+/* ===== JOURNEY SNAPSHOT ===== */
+
+.journey-snapshot {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.journey-step {
+  text-align: center;
+  font-size: 13px;
+  color: var(--charcoal-soft);
+  transition: all 0.2s ease;
+}
+
+.journey-step span {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.journey-step:hover {
+  transform: translateY(-4px);
+  color: var(--charcoal);
+}
+
+/* ===== INSIGHT CHIPS ===== */
+
+.insight-chips {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--charcoal-soft);
+  transition: all 0.2s ease;
+}
+
+.chip:hover {
+  background: #fdf6f8;
+  border-color: #e8a5b0;
+  color: var(--charcoal);
+  transform: translateY(-2px);
+}
