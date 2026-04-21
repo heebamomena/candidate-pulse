@@ -142,20 +142,27 @@ function buildFunnel() {
 
   funnelStages.forEach((s, i) => {
     const row = document.createElement("div");
-    row.className = "funnel-stage";
+    row.className = "funnel-stage interactive-funnel-stage";
     row.innerHTML = `
-      <div class="funnel-label">${s.label}</div>
-      <div class="funnel-bar-wrap">
-        <div class="funnel-bar" id="fbar${i}"
-             style="width:0%;background:${s.color}22;border:1.5px solid ${s.color};">
-          <span style="color:${s.color}">${s.count} candidates</span>
-        </div>
-      </div>
-      <div class="funnel-count">${s.count}</div>
-      ${s.drop !== "—"
-        ? `<span class="drop-tag ${s.dropClass}">${s.drop}</span>`
-        : `<span class="drop-tag-placeholder"></span>`}
-    `;
+  <div class="funnel-label">${s.label}</div>
+
+  <div class="funnel-bar-wrap">
+    <div class="funnel-bar" id="fbar${i}"
+         style="width:0%; background:${s.color}22; border:1.5px solid ${s.color};">
+
+      <span class="funnel-bar-text" style="color:${s.color}">
+        ${s.count} candidates
+      </span>
+
+    </div>
+  </div>
+
+  <div class="funnel-count">${s.count}</div>
+
+  ${s.drop !== "—"
+    ? `<span class="drop-tag ${s.dropClass}">${s.drop}</span>`
+    : `<span class="drop-tag-placeholder"></span>`}
+`;
 
     row.addEventListener("click", () => openFunnelModal(i));
     container.appendChild(row);
