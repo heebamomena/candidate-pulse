@@ -1214,3 +1214,23 @@ button[onclick="generateMessage()"]:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(143, 61, 87, 0.28);
 }
+/* ===== ABOUT QUOTE STYLE ===== */
+
+.about-quote {  
+  font-size: 18px;  
+  font-style: italic;  
+  font-weight: 700;  
+  color: var(--charcoal);  
+  line-height: 1.7;  
+  letter-spacing: -0.01em;  
+  text-align: center;  
+  margin: 0 auto;  
+}
+
+.about-divider {  
+  width: 80px;  
+  height: 3px;  
+  background: linear-gradient(90deg, #c4687a, #e8a5b0);  
+  margin: 0 auto 20px;  
+  border-radius: 999px;  
+}
