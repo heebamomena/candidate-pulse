@@ -318,16 +318,22 @@
               </select>
             </div>
             <div class="control-group">
-              <label class="control-label">Company Name</label>
-              <input type="text" id="msgCompany" value="TalentForward" placeholder="Your company name" />
-            </div>
-          </div>
-          <button class="gen-btn" id="genBtn">&#x2728; Generate personalised message</button>
-          <div class="msg-output" id="msgOutput">
-            <p class="msg-placeholder" id="msgPlaceholder">Your personalised message will appear here. Select a candidate and message type above, then click generate.</p>
-            <div class="msg-text" id="msgText" style="display:none;"></div>
-            <button class="copy-btn" id="copyBtn" style="display:none;" onclick="copyMessage()">Copy</button>
-          </div>
+  <label class="control-label">Company Name</label>
+  <input type="text" id="msgCompany" value="TalentForward" placeholder="Your company name" />
+</div>
+</div>
+
+<div class="message-actions">
+  <button class="gen-btn" id="genBtn">✨ Generate personalised message ✨</button>
+</div>
+
+<div class="msg-output" id="msgOutput">
+  <p class="msg-placeholder" id="msgPlaceholder">
+    Your personalised message will appear here. Select a candidate and message type above, then click generate.
+  </p>
+  <div class="msg-text" id="msgText" style="display:none;"></div>
+  <button class="copy-btn" id="copyBtn" style="display:none;" onclick="copyMessage()">Copy</button>
+</div>
         </div>
       </div>
     </div>
@@ -351,7 +357,7 @@
   <footer>
   <div class="container footer-inner">
     <div class="footer-logo">
-      <span class="logo-dot"></span> Candidate Pulse by Heeba Momena
+      <span class="logo-dot"></span> Candidate Pulse
     </div>
 
     <p class="footer-copy">
