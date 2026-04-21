@@ -1326,3 +1326,35 @@ button[onclick="generateMessage()"]:hover {
   opacity: 1;
   transform: translateY(0);
 }
+/* ===== INTERACTIVE FUNNEL ===== */
+
+.interactive-funnel-stage {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  border-radius: 18px;
+  padding: 10px 12px;
+}
+
+.interactive-funnel-stage:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 24px rgba(44, 44, 42, 0.08);
+}
+
+.funnel-bar {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(44, 44, 42, 0.05);
+}
+
+.interactive-funnel-stage:hover .funnel-bar {
+  transform: scale(1.02);
+  box-shadow: 0 10px 24px rgba(44, 44, 42, 0.12);
+}
+
+.funnel-bar-text {
+  font-weight: 600;
+}
+
+.interactive-funnel-stage:hover .funnel-count {
+  color: var(--rose-deep);
+}
