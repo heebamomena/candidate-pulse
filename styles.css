@@ -1288,3 +1288,28 @@ button[onclick="generateMessage()"]:hover {
   color: var(--charcoal);
   transform: translateY(-2px);
 }
+/* ===== FIX LARGE SECTION SPACING ===== */
+
+.section {
+  padding: 60px 0 !important;
+}
+
+.about-section {
+  padding-bottom: 20px !important;
+}
+
+.about-bottom {
+  margin-top: 16px !important;
+}
+
+.journey-snapshot {
+  margin-top: 12px !important;
+}
+
+.insight-chips {
+  margin-top: 10px !important;
+}
+
+#funnel.section {
+  padding-top: 30px !important;
+}
