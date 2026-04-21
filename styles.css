@@ -1177,3 +1177,40 @@ footer {
   margin-left: auto;  
   margin-right: auto;  
 }
+/* ===== MESSAGE BUILDER BUTTON FIX ===== */
+
+.message-actions,
+.generator-actions,
+.builder-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+#generateBtn,
+.generate-btn,
+button[onclick="generateMessage()"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #8f3d57;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(143, 61, 87, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+#generateBtn:hover,
+.generate-btn:hover,
+button[onclick="generateMessage()"]:hover {
+  background: #7c324a;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(143, 61, 87, 0.28);
+}
