@@ -367,21 +367,6 @@ function openPanel(idx, tr) {
   if (tr) tr.classList.add("active-row");
 
   const c = candidates[idx];
-
-const riskLevel =
-  c.comm < 50 || c.days > 14 || c.sentiment === "negative"
-    ? "High"
-    : c.comm < 75 || c.days > 9 || c.sentiment === "neutral"
-      ? "Medium"
-      : "Low";
-
-const riskReason =
-  riskLevel === "High"
-    ? "Low communication score, longer response time, or negative sentiment may increase the chance of candidate drop-off."
-    : riskLevel === "Medium"
-      ? "There are some signals to watch, such as waiting time, mixed sentiment, or average communication quality."
-      : "This candidate appears engaged, with stronger communication signals and lower drop-off risk.";
-
 document.getElementById("sideInner").innerHTML = `
     <div class="side-top">
       <button class="side-close" onclick="closePanel()">&#x2715;</button>
