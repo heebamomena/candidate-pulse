@@ -141,28 +141,32 @@ function buildFunnel() {
   container.innerHTML = "";
 
   funnelStages.forEach((s, i) => {
+    const previous = i === 0 ? s.count : funnelStages[i - 1].count;
+    const conversionFromPrevious = i === 0 ? 100 : Math.round((s.count / previous) * 100);
+
     const row = document.createElement("div");
     row.className = "funnel-stage interactive-funnel-stage";
+
     row.innerHTML = `
-  <div class="funnel-label">${s.label}</div>
+      <div class="funnel-label">${s.label}</div>
 
-  <div class="funnel-bar-wrap">
-    <div class="funnel-bar" id="fbar${i}"
-         style="width:0%; background:${s.color}22; border:1.5px solid ${s.color};">
+      <div class="funnel-bar-wrap">
+        <div class="funnel-bar" id="fbar${i}"
+             style="width:0%; background:${s.color}22; border:1.5px solid ${s.color};">
 
-      <span class="funnel-bar-text" style="color:${s.color}">
-        ${s.count} candidates
-      </span>
+          <span class="funnel-bar-text" style="color:${s.color}">
+            ${s.count} candidates · ${conversionFromPrevious}% from previous
+          </span>
 
-    </div>
-  </div>
+        </div>
+      </div>
 
-  <div class="funnel-count">${s.count}</div>
+      <div class="funnel-count">${s.count}</div>
 
-  ${s.drop !== "—"
-    ? `<span class="drop-tag ${s.dropClass}">${s.drop}</span>`
-    : `<span class="drop-tag-placeholder"></span>`}
-`;
+      ${s.drop !== "—"
+        ? `<span class="drop-tag ${s.dropClass}">${s.drop}</span>`
+        : `<span class="drop-tag-placeholder"></span>`}
+    `;
 
     row.addEventListener("click", () => openFunnelModal(i));
     container.appendChild(row);
@@ -171,6 +175,7 @@ function buildFunnel() {
       document.getElementById("fbar" + i).style.width = s.pct + "%";
     }, 200 + i * 120);
   });
+}
 }
 
 function openFunnelModal(index) {
@@ -363,7 +368,21 @@ function openPanel(idx, tr) {
 
   const c = candidates[idx];
 
-  document.getElementById("sideInner").innerHTML = `
+const riskLevel =
+  c.comm < 50 || c.days > 14 || c.sentiment === "negative"
+    ? "High"
+    : c.comm < 75 || c.days > 9 || c.sentiment === "neutral"
+      ? "Medium"
+      : "Low";
+
+const riskReason =
+  riskLevel === "High"
+    ? "Low communication score, longer response time, or negative sentiment may increase the chance of candidate drop-off."
+    : riskLevel === "Medium"
+      ? "There are some signals to watch, such as waiting time, mixed sentiment, or average communication quality."
+      : "This candidate appears engaged, with stronger communication signals and lower drop-off risk.";
+
+document.getElementById("sideInner").innerHTML = `
     <div class="side-top">
       <button class="side-close" onclick="closePanel()">&#x2715;</button>
       <div class="side-avatar" style="background:${c.color}22;color:${c.color}">${c.initials}</div>
@@ -382,6 +401,11 @@ function openPanel(idx, tr) {
       <div class="stat-row"><span class="stat-key">Communication score</span><span class="stat-val">${commHTML(c.comm)}</span></div>
     </div>
 
+<div class="side-section-title">Drop-off risk insight</div>
+<div class="risk-box risk-${riskLevel.toLowerCase()}">
+  <strong>${riskLevel} risk</strong>
+  <p>${riskReason}</p>
+</div>
     <div class="side-section">
       <div class="side-section-title">Their feedback</div>
       <div class="quote-block">"${c.feedback}"</div>
@@ -496,30 +520,41 @@ function populateMsgDropdown() {
 }
 
 function generateMessage() {
-  const inputEl = document.getElementById("msgCandidateInput");
-  const typedName = inputEl.value.trim();
+  const typedName = document.getElementById("msgCandidateInput").value.trim();
   const selectedName = document.getElementById("msgCandidate").value;
   const name = typedName || selectedName;
 
   const type = document.getElementById("msgType").value;
   const tone = document.getElementById("msgTone").value;
   const company = document.getElementById("msgCompany").value || "TalentForward";
+  const btn = document.getElementById("genBtn");
 
   if (!name) return;
+
+  btn.textContent = "Generating...";
+  btn.disabled = true;
 
   const cand = candidates.find(c => c.name.toLowerCase() === name.toLowerCase());
   const resolvedName = cand ? cand.name : name;
   const role = cand ? cand.role : "this role";
 
-  if (cand) {
-    inputEl.value = cand.name;
-    document.getElementById("msgCandidate").value = cand.name;
+  const fn = messageTemplates[type]?.[tone];
+  if (!fn) {
+    btn.textContent = "✨ Generate personalised message ✨";
+    btn.disabled = false;
+    return;
   }
 
-  const fn = messageTemplates[type]?.[tone];
-  if (!fn) return;
-
   const text = fn(resolvedName, role, company);
+
+  const messageInsight = {
+    received: "This message sets a warm first impression and confirms that the candidate’s application has been received.",
+    screening: "This message reduces uncertainty by clearly moving the candidate into the next stage.",
+    interview: "This message keeps momentum by making the next step feel organised and easy to follow.",
+    followup: "This message protects trust by acknowledging the waiting period and keeping the candidate informed.",
+    rejection: "This message supports employer brand by being respectful, clear, and human.",
+    offer: "This message creates a positive close to the hiring journey and reinforces excitement."
+  };
 
   document.getElementById("msgPlaceholder").style.display = "none";
 
@@ -533,8 +568,17 @@ function generateMessage() {
   const interval = setInterval(() => {
     out.textContent = text.slice(0, i);
     i += 4;
+
     if (i > text.length) {
-      out.textContent = text;
+      out.innerHTML = `
+        <p>${text}</p>
+        <div class="msg-insight">
+          💡 ${messageInsight[type] || "This message helps keep communication clear, timely, and candidate-friendly."}
+        </div>
+      `;
+
+      btn.textContent = "✨ Generate personalised message ✨";
+      btn.disabled = false;
       clearInterval(interval);
     }
   }, 10);
