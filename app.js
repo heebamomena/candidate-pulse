@@ -174,7 +174,6 @@ function buildFunnel() {
     }, 200 + i * 120);
   });
 }
-}
 
 function openFunnelModal(index) {
   const stage = funnelStages[index];
@@ -358,56 +357,36 @@ function sortBy(col) {
 
 function openPanel(idx, tr) {
   // Toggle off if same row clicked again
-  if (activeIdx === idx) { closePanel(); return; }
+  if (activeIdx === idx) {
+    closePanel();
+    return;
+  }
 
   activeIdx = idx;
   document.querySelectorAll(".dir-table tbody tr").forEach(r => r.classList.remove("active-row"));
   if (tr) tr.classList.add("active-row");
 
   const c = candidates[idx];
-document.getElementById("sideInner").innerHTML = `
+
+  const riskLevel =
+    c.comm < 50 || c.days > 14 || c.sentiment === "negative"
+      ? "High"
+      : c.comm < 75 || c.days > 9 || c.sentiment === "neutral"
+        ? "Medium"
+        : "Low";
+
+  const riskReason =
+    riskLevel === "High"
+      ? "Low communication score, longer response time, or negative sentiment may increase the chance of candidate drop-off."
+      : riskLevel === "Medium"
+        ? "There are some signals to watch, such as waiting time, mixed sentiment, or average communication quality."
+        : "This candidate appears engaged, with stronger communication signals and lower drop-off risk.";
+
+  document.getElementById("sideInner").innerHTML = `
     <div class="side-top">
       <button class="side-close" onclick="closePanel()">&#x2715;</button>
       <div class="side-avatar" style="background:${c.color}22;color:${c.color}">${c.initials}</div>
-      <div class="side-name">${c.name}</div>
-      <div class="side-role">${c.role} &middot; ${c.industry}</div>
-      <div class="side-pills">
-        <span class="pill ${stageClass[c.stage]}">${c.stage.charAt(0).toUpperCase() + c.stage.slice(1)}</span>
-        <span class="pill" style="background:${sentColor[c.sentiment]}22;color:${sentColor[c.sentiment]}">${sentLabel[c.sentiment]}</span>
-      </div>
-    </div>
-
-    <div class="side-section">
-      <div class="side-section-title">Quick stats</div>
-      <div class="stat-row"><span class="stat-key">Days in process</span><span class="stat-val">${c.days} days</span></div>
-      <div class="stat-row"><span class="stat-key">Experience rating</span><span class="stat-val">${starsHTML(c.rating)}</span></div>
-      <div class="stat-row"><span class="stat-key">Communication score</span><span class="stat-val">${commHTML(c.comm)}</span></div>
-    </div>
-
-<div class="side-section-title">Drop-off risk insight</div>
-<div class="risk-box risk-${riskLevel.toLowerCase()}">
-  <strong>${riskLevel} risk</strong>
-  <p>${riskReason}</p>
-</div>
-    <div class="side-section">
-      <div class="side-section-title">Their feedback</div>
-      <div class="quote-block">"${c.feedback}"</div>
-      ${c.dropReason ? `<div class="drop-reason">Drop-off reason: ${c.dropReason}</div>` : ""}
-    </div>
-
-    <div class="side-section">
-      <div class="side-section-title">Journey (${c.timeline.length} steps)</div>
-      ${c.timeline.map((t, i) => `
-        <div class="tl-item">
-          <div class="tl-dot" style="background:${i === c.timeline.length - 1 ? c.color : "#D3D1C7"}"></div>
-          <div class="tl-text">${t}</div>
-        </div>
-      `).join("")}
-    </div>
-  `;
-
-  document.getElementById("sidePanel").classList.add("open");
-}
+      <div class="side-name">${c.name}</div
 
 function closePanel() {
   activeIdx = null;
