@@ -386,20 +386,48 @@ function openPanel(idx, tr) {
     <div class="side-top">
       <button class="side-close" onclick="closePanel()">&#x2715;</button>
       <div class="side-avatar" style="background:${c.color}22;color:${c.color}">${c.initials}</div>
-      <div class="side-name">${c.name}</div
+      <div class="side-name">${c.name}</div>
+      <div class="side-role">${c.role} &middot; ${c.industry}</div>
+      <div class="side-pills">
+        <span class="pill ${stageClass[c.stage]}">${c.stage.charAt(0).toUpperCase() + c.stage.slice(1)}</span>
+        <span class="pill" style="background:${sentColor[c.sentiment]}22;color:${sentColor[c.sentiment]}">${sentLabel[c.sentiment]}</span>
+      </div>
+    </div>
 
-function closePanel() {
-  activeIdx = null;
-  document.querySelectorAll(".dir-table tbody tr").forEach(r => r.classList.remove("active-row"));
-  document.getElementById("sidePanel").classList.remove("open");
+    <div class="side-section">
+      <div class="side-section-title">Quick stats</div>
+      <div class="stat-row"><span class="stat-key">Days in process</span><span class="stat-val">${c.days} days</span></div>
+      <div class="stat-row"><span class="stat-key">Experience rating</span><span class="stat-val">${starsHTML(c.rating)}</span></div>
+      <div class="stat-row"><span class="stat-key">Communication score</span><span class="stat-val">${commHTML(c.comm)}</span></div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-section-title">Drop-off risk insight</div>
+      <div class="risk-box risk-${riskLevel.toLowerCase()}">
+        <strong>${riskLevel} risk</strong>
+        <p>${riskReason}</p>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-section-title">Their feedback</div>
+      <div class="quote-block">"${c.feedback}"</div>
+      ${c.dropReason ? `<div class="drop-reason">Drop-off reason: ${c.dropReason}</div>` : ""}
+    </div>
+
+    <div class="side-section">
+      <div class="side-section-title">Journey (${c.timeline.length} steps)</div>
+      ${c.timeline.map((t, i) => `
+        <div class="tl-item">
+          <div class="tl-dot" style="background:${i === c.timeline.length - 1 ? c.color : "#D3D1C7"}"></div>
+          <div class="tl-text">${t}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  document.getElementById("sidePanel").classList.add("open");
 }
-
-function clearFilters() {
-  document.getElementById("searchInput").value = "";
-  ["filterStage", "filterSentiment", "filterIndustry", "filterRating", "filterComm"]
-    .forEach(id => (document.getElementById(id).value = ""));
-
-  currentPage = 1;
   closePanel();
   renderTable();
 }
