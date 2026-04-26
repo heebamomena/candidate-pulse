@@ -71,8 +71,6 @@ function animateStats() {
 
 // ─── FUNNEL ──────────────────────────────────────────────────
 
-// ─── FUNNEL ──────────────────────────────────────────────────
-
 const funnelStages = [
   {
     label: "Applications started",
