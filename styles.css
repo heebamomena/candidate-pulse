@@ -1477,3 +1477,149 @@ button[onclick="generateMessage()"]:hover {
   cursor: not-allowed;
   transform: none;
 }
+/* ===== FUNNEL TOP CARDS ===== */
+
+.funnel-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 32px !important;
+  align-items: stretch !important;
+}
+
+/* ===== FUNNEL BARS + REMINDERS LAYOUT ===== */
+
+.funnel-bottom-grid {
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 32px;
+  align-items: start;
+}
+
+.funnel-visual {
+  width: 100%;
+}
+
+/* ===== UPCOMING REMINDERS CARD ===== */
+
+.upcoming-reminders {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 16px 42px rgba(44, 44, 42, 0.08);
+  position: sticky;
+  top: 96px;
+}
+
+.reminder-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.reminder-main-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: #eaf4fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.reminder-header h3 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--charcoal);
+  margin: 0 0 5px;
+}
+
+.reminder-header p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.reminder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.reminder-item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.reminder-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: #fff6f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.reminder-item strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.reminder-pill {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #fde8ee;
+  color: var(--rose-deep);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reminder-date {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #eaf4fb;
+  color: #3a7fa0;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.reminder-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #3a7fa0;
+  text-decoration: none;
+}
+
+.reminder-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1000px) {
+  .funnel-grid,
+  .funnel-bottom-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .upcoming-reminders {
+    position: static;
+  }
+}
