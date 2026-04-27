@@ -1682,3 +1682,90 @@ button[onclick="generateMessage()"]:hover {
   flex-direction: column;
   gap: 14px;
 }
+/* ===== FIX GENERATE BUTTON ===== */
+
+.message-actions {
+  display: flex;
+  justify-content: center;
+  margin: 22px 0;
+}
+
+.gen-btn {
+  background: #8f3d57 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 14px 28px !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  font-family: "DM Sans", sans-serif !important;
+  cursor: pointer !important;
+  box-shadow: 0 12px 28px rgba(143, 61, 87, 0.25) !important;
+  transition: all 0.2s ease !important;
+}
+
+.gen-btn:hover {
+  background: #7c324a !important;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(143, 61, 87, 0.32) !important;
+}
+
+.gen-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed !important;
+  transform: none;
+}
+/* ===== CLEAN REMINDER LINK BUTTON ===== */
+
+.reminder-link {
+  display: inline-flex !important;
+  align-items: center;
+  margin-top: 22px;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  color: #3a7fa0 !important;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+
+.reminder-link:hover {
+  color: var(--rose-deep) !important;
+  text-decoration: none !important;
+  transform: translateX(3px);
+}
+/* ===== TIGHTEN SECTION SPACING ===== */
+
+.section {
+  padding-top: 70px !important;
+  padding-bottom: 70px !important;
+}
+
+.about-section {
+  padding-bottom: 45px !important;
+}
+
+#funnel.section {
+  padding-top: 55px !important;
+}
+
+#candidates.section {
+  padding-top: 60px !important;
+}
+
+#sentiment.section,
+#messages.section,
+#improve.section {
+  padding-top: 70px !important;
+}
+
+.funnel-bottom-grid {
+  margin-top: 28px !important;
+}
+
+.improve-grid {
+  margin-top: 36px !important;
+}
