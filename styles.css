@@ -1769,3 +1769,11 @@ button[onclick="generateMessage()"]:hover {
 .improve-grid {
   margin-top: 36px !important;
 }
+/* ===== MOCK DATA NOTE ===== */
+
+.mock-data-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+}
