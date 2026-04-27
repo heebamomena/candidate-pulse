@@ -214,7 +214,9 @@
 
         </div>
 
-        <a href="#messages" class="reminder-link">View all reminders →</a>
+        <button class="reminder-link" onclick="openRemindersModal()">
+  View all reminders →
+</button>
       </div>
 
     </div>
@@ -472,5 +474,66 @@
   <script src="data.js"></script>
   <script src="app.js"></script>
 
+  <script src="data.js"></script>
+<script src="app.js"></script>
+
+<!-- ✅ PASTE YOUR MODAL HERE -->
+<div class="reminders-modal" id="remindersModal">
+  <div class="reminders-modal-card">
+
+    <button class="reminders-close" onclick="closeRemindersModal()">✕</button>
+
+    <h3>All reminders</h3>
+    <p class="reminders-sub">Mock activity across your pipeline</p>
+
+    <div class="reminders-full-list">
+
+      <div class="reminder-item">
+        <span class="reminder-icon">💬</span>
+        <div>
+          <strong>Follow up with 5 candidates</strong>
+          <p>Waiting 3–7 days after screening</p>
+        </div>
+      </div>
+
+      <div class="reminder-item">
+        <span class="reminder-icon">📅</span>
+        <div>
+          <strong>Schedule final interviews</strong>
+          <p>3 candidates pending availability</p>
+        </div>
+      </div>
+
+      <div class="reminder-item">
+        <span class="reminder-icon">📝</span>
+        <div>
+          <strong>Send rejection feedback</strong>
+          <p>4 candidates waiting for closure</p>
+        </div>
+      </div>
+
+      <div class="reminder-item">
+        <span class="reminder-icon">⚡</span>
+        <div>
+          <strong>Speed up screening stage</strong>
+          <p>Average delay: 6.5 days</p>
+        </div>
+      </div>
+
+      <div class="reminder-item">
+        <span class="reminder-icon">🎯</span>
+        <div>
+          <strong>Review drop-off reasons</strong>
+          <p>High exits at first interview</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
 </body>
 </html>
