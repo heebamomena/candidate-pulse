@@ -675,3 +675,18 @@ const revealObserver = new IntersectionObserver((entries) => {
 });
 
 revealItems.forEach(item => revealObserver.observe(item));
+function openRemindersModal() {
+  document.getElementById("remindersModal").classList.add("open");
+}
+
+function closeRemindersModal() {
+  document.getElementById("remindersModal").classList.remove("open");
+}
+
+// click outside to close
+document.addEventListener("click", function(e) {
+  const modal = document.getElementById("remindersModal");
+  if (e.target === modal) {
+    closeRemindersModal();
+  }
+});
