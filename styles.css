@@ -1753,13 +1753,13 @@ button[onclick="generateMessage()"]:hover {
 }
 
 #candidates.section {
-  padding-top: 60px !important;
+  padding-top: 40px !important;
 }
 
 #sentiment.section,
 #messages.section,
 #improve.section {
-  padding-top: 70px !important;
+  padding-top: 40px !important;
 }
 
 .funnel-bottom-grid {
